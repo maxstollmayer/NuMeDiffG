@@ -10491,6 +10491,7 @@ div.cell.selected.jupyter-soft-selected:before {
   }
 }
 .prompt {
+  display: none; /* not needed for this document */
   /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
   min-width: 14ex;
   /* This padding is tuned to match the padding on the CodeMirror editor. */
@@ -11441,6 +11442,11 @@ div#notebook {
 @media print {
   #notebook-container {
     width: 100%;
+  }
+}
+@media (min-width: 767px) {
+  #notebook-container {
+    padding: 45px;
   }
 }
 div.ui-widget-content {
