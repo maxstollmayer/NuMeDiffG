@@ -8,4 +8,4 @@ Programmierung des Euler-Verfahrens für ODE-Systeme 1. Ordnung
 Elementare Beweise zum Euler-Verfahren und Crank-Nicolson-Verfahren
 
 ## Aufgabenblatt 3
-Beweis zu expliziter Ein-Schritt-Methode und Implementation des Crank-Nicholson-Verfahrens und des impliien Euler-Verfahrens
+Beweis zu expliziter Ein-Schritt-Methode und Implementation des Crank-Nicholson-Verfahrens und des impliziten Euler-Verfahrens
