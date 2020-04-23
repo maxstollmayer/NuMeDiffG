@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Aufgabenblatt 2 Lösung</title>
+<title>Aufgabenblatt 3 Lösung</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -10491,7 +10491,6 @@ div.cell.selected.jupyter-soft-selected:before {
   }
 }
 .prompt {
-  display: none; /* no need for this document */
   /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
   min-width: 14ex;
   /* This padding is tuned to match the padding on the CodeMirror editor. */
@@ -11439,12 +11438,6 @@ div#notebook {
     box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
   }
 }
-@media (min-width: 767px) {
-  #notebook-container {
-    padding: 45px;
-  }
-}
-
 @media print {
   #notebook-container {
     width: 100%;
@@ -13091,7 +13084,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabenblatt-2">Aufgabenblatt 2<a class="anchor-link" href="#Aufgabenblatt-2">&#182;</a></h2><p><em>gelöst von Stollmayer Max</em></p>
+<h2 id="Aufgabenblatt-3">Aufgabenblatt 3<a class="anchor-link" href="#Aufgabenblatt-3">&#182;</a></h2><p><em>gelöst von Stollmayer Max</em></p>
 
 </div>
 </div>
@@ -13106,7 +13099,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Gegeben sei $y'(t)=f(t,y)=\frac{t+1}{y}$, $y_0 = 1$, $t_0 = 0$ und die exakte Lösung $y(t)=|t+1|$. Das Vorwärts-Euler-Verfahren für Schrittweite $h&gt;0$ liefert für dieses Problem die exakte Lösung.</p>
+<p>Sei $y_{n+1} = y_n + h\ \Phi (t_n, y_n, h)$ eine explizite Ein-Schritt-Methode mit $\Phi (t, y, h) = a_1\ f(t,y) + a_2\ f\big(t+b_2\ h,\ y+ b_2\ h\ f(t,y)\big)$ und Koeffizienten $a_1 = \frac{1}{4},\ a_2 = \frac{1}{4},\ b_2 = \frac{2}{3}$ für das Modellproblem sei $y' = \lambda\ y$ mit $\lambda &gt; 0$.</p>
+<p>Die Folge $(y_n)_{n \ge 0}$ ist genau dann beschränkt, wenn $-\frac{2}{\lambda} \le h \le 0$ gilt.</p>
 
 </div>
 </div>
@@ -13114,7 +13108,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Zu zeigen ist nun $y_{n+1} = y(t_{n+1}) \; \forall n \in \mathbb{N}$, wobei $t_{n+1} = t_0 + (n+1) \ h$ und $y_{n+1}=y_n + h \ f(t_n,y_n)$.</p>
+<h4 id="Beweis">Beweis<a class="anchor-link" href="#Beweis">&#182;</a></h4><p>Für $y' = \lambda\ y$ ist $f(t,y) = f(y) = \lambda\ y$. Damit lässt sich $y_{n+1}$ explizit hinschreiben:</p>
 
 </div>
 </div>
@@ -13122,7 +13116,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsanfang:</strong>  Es sei $n=0$, dann gilt $y_1 = y_0 + h \ f(t_0,y_0) = 1 + h \frac{1}{1} = 1+h = y(h) = y(t_1)$.</p>
+\begin{align*}
+y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{1}{4}\ f\big(y_n + \frac{2}{3}\ h\ f(y_n)\big)\bigg) \\
+&amp;= y_n + \frac{\lambda}{4}\ h\ y_n + \frac{3\ \lambda}{4}\ h\ \big(y_n + \frac{2\ \lambda}{3}\ h\ y_n\big) \\
+&amp;= \big(1 + \frac{\lambda}{4}\ h + \frac{3\ \lambda}{4}\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
+&amp;= \big(1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
+&amp;=\ ... \\
+&amp;= \big(1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)^{n+1}\ y_0
+\end{align*}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Die geometrische Folge $(y_n)_{n \ge 0}$ ist nun genau dann beschränkt, wenn $|1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2| \le 1$ gilt, also äquivalent, wenn gilt $-2 \le \lambda\ h + \frac{\lambda^2}{2}\ h^2 \le 0$.</p>
 
 </div>
 </div>
@@ -13130,7 +13138,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsannahme:</strong>  Für $n \in \mathbb{N}$ gelte $y_n = y(t_n)$.</p>
+<p>$\bullet \quad$ $\frac{\lambda^2}{2}\ h^2 + \lambda\ h + 2 &gt; 0 $ gilt für jedes $h \in \mathbb{R}$ und $\lambda &gt; 0$.</p>
 
 </div>
 </div>
@@ -13138,8 +13146,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsschritt:</strong>  Für $n+1$ folgt nun:
-$$y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \frac{n \ h + 1}{n \ h +1}=n \ h +1 + h=(n+1) \ h+1=y\big((n+1) \ h\big)=y(t_{n+1})$$</p>
+<p>$\bullet \quad$ $\frac{\lambda^2}{2}\ h^2 + \lambda\ h \le 0 \iff h\ (\frac{\lambda}{2}\ h + 1) \le 0 \iff \begin{cases}h \le 0 \land \frac{\lambda}{2}\ h + 1 \ge 0 \\ h \ge 0 \land \frac{\lambda}{2}\ h + 1 \le 0 \end{cases} \iff h \le 0 \land h \ge -\frac{2}{\lambda}$</p>
 
 </div>
 </div>
@@ -13147,6 +13154,7 @@ $$y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \fra
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Da für $h \ge 0$ die Ungleichung $\frac{\lambda}{2}\ h + 1 \le 0$ nicht gelten kann, ist nach einer kurzen Umformung die Behauptung $-\frac{2}{\lambda} \le h \le 0$ gezeigt.</p>
 <div style="width:12px; height:12px; border:1px solid #000; margin-left:auto; margin-right:0;"></div>
 </div>
 </div>
@@ -13161,7 +13169,7 @@ $$y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \fra
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Für $y'(t)=f(t,y)=a(t) \ y(t)+b(t)$ lässt sich das Crank-Nicolson-Verfahren zu einem expliziten Ausdruck umformen:</p>
+<p>Zu implementieren ist das Crank-Nicolson-Verfahren mit der Fixpunkt-Iteration:</p>
 
 </div>
 </div>
@@ -13169,24 +13177,17 @@ $$y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \fra
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-\begin{align*}
-y_{n+1} &amp;= y_n+\frac{h}{2}\bigg(f(t_n,y_n)+f(t_{n+1},y_{n+1})\bigg) \\
-&amp;= y_n + \frac{h}{2}\bigg(f(t_n,y_n)+a(t_{n+1}) \ y_{n+1}+b(t_{n+1})\bigg) \\
-\llap{\Longleftrightarrow \qquad} \big(2 - h \ a(t_{n+1})\big) \ y_{n+1} &amp;= 2 \ y_n + h \ \big(f(t_n,y_n)+b(t_{n+1})\big) \\
-\llap{\Longleftrightarrow \qquad} y_{n+1} &amp;= \frac{2 \ y_n + h \ \big(f(t_n,y_n)+b(t_{n+1})\big)}{2 - h \ a(t_{n+1})} \\
-&amp;= \frac{2 - h \ a(t_n)}{2 - h \ a(t_{n+1})} \ y_n + h \ \big(b(t_{n+1})+b(t_n)\big) \\
-&amp;= \frac{2 - h \ a(t_n)}{2 - h \ a(t_{n+1})} \bigg( \frac{2 - h \ a(t_{n-1})}{2 - h \ a(t_{n})} \ y_{n-1} + h \ \big(b(t_{n})+b(t_{n-1})\big) \bigg) + h \ \big(b(t_{n+1})+b(t_n)\big) \\
-&amp;= \frac{2 - h \ a(t_{n-1})}{2 - h \ a(t_{n+1})} \ y_{n-1} + \frac{2 - h \ a(t_{n})}{2 - h \ a(t_{n+1})} \ h \ \big(b(t_{n})+b(t_{n-1})\big) + \frac{2 - h \ a(t_{n+1})}{2 - h \ a(t_{n+1})} \ h \ \big(b(t_{n+1})+b(t_n)\big) \\
-&amp;= \dots \\
-&amp;= \frac{1}{2-h \ a(t_{n+1})} \bigg( \big(2-h \ a(t_0)\big) \ y_0 + h \ \sum_{k=1}^{n+1} \big(2-h \ a(t_k)\big)\big(b(t_k)+b(t_{k-1})\big)\bigg)
-\end{align*}
+\begin{cases}
+y_{n+1}^{(k+1)} = y_n + \frac{h}{2} \ \big(f(t_n, y_n) + f(t_{n+1},\ y_{n+1}^{(k)})\big), \quad k \ge 0 \\
+y_{n+1}^{(0)} = y_n
+\end{cases}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Also ist unser expliziter Ausdruck für lineare ODE 1. Ordnung:</p>
+<p>und das Rückwärts-Euler-Verfahren mit der Fixpunkt-Iteration:</p>
 
 </div>
 </div>
@@ -13194,9 +13195,25 @@ y_{n+1} &amp;= y_n+\frac{h}{2}\bigg(f(t_n,y_n)+f(t_{n+1},y_{n+1})\bigg) \\
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-$$ y_n = \frac{1}{2-h \ a(t_n)} \bigg( \big(2-h \ a(t_0)\big) \ y_0 + h \ \sum_{k=1}^n \big(2-h \ a(t_k)\big)\big(b(t_k)+b(t_{k-1})\big)\bigg) $$
+\begin{cases}
+y_{n+1}^{(k+1)} = y_n + h \ f(t_{n+1},\ y_{n+1}^{(k)}), \quad k \ge 0 \\
+y_{n+1}^{(0)} = y_n
+\end{cases}
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
