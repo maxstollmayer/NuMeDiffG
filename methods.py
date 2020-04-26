@@ -121,3 +121,16 @@ def crank_nicolson(f, y0, t0, tN, N, tol=0.001):
         y = np.append(y, [new], axis=0)
 
     return t, y
+
+
+class Runge_Kutta:
+    '''
+    An instance of Runge_Kutta is an iterative numerical method defined by its
+    butcher array
+    '''
+
+    def __init__(self, A, b, c):
+        self.stages = len(b)
+        self.A = A
+        self.b = b
+        self.c = c
