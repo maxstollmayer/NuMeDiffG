@@ -8,4 +8,4 @@ Implementierung des expliziten Euler-Verfahrens für ODE-Systeme 1. Ordnung
 Beweise zum expliziten Euler-Verfahren und Crank-Nicholson-Verfahren
 
 ### Aufgabenblatt 3
-Beweis zu expliziter Ein-Schritt-Methode und Implementation des Crank-Nicholson-Verfahrens und des impliziten Euler-Verfahrens
+Beweis zu expliziter Ein-Schritt-Methode und Implementation des Rückwärts-Euler-Verfahrens, sowie des Crank-Nicholson-Verfahrens mithilfe der Fixpunkt-Iteration
