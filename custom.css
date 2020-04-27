@@ -1,0 +1,12 @@
+.prompt {
+  display: none;
+}
+
+.input_prompt {
+  display: none;
+}
+
+#notebook-container {
+  padding: 45px;
+  padding-top: 15px;
+}
