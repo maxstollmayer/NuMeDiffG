@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
+
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
 <link rel="stylesheet" href="style.css">
 
@@ -61,7 +62,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Sei $y_{n+1} = y_n + h\ \Phi (t_n, y_n, h)$ eine explizite Ein-Schritt-Methode mit $\Phi (t, y, h) = a_1\ f(t,y) + a_2\ f\big(t+b_2\ h,\ y+ b_2\ h\ f(t,y)\big)$ und Koeffizienten $a_1 = \frac{1}{4},\ a_2 = \frac{1}{4},\ b_2 = \frac{2}{3}$ für das Modellproblem sei $y' = \lambda\ y$ mit $\lambda &gt; 0$.</p>
+<p>Sei $y_{n+1} = y_n + h\ \Phi (t_n, y_n, h)$ eine explizite Ein-Schritt-Methode mit $\Phi (t, y, h) = a_1\ f(t,y) + a_2\ f\big(t+b_2\ h,\ y+ b_2\ h\ f(t,y)\big)$ und Koeffizienten $a_1 = \frac{1}{4},\ a_2 = \frac{3}{4},\ b_2 = \frac{2}{3}$ für das Modellproblem $y' = \lambda\ y$ mit $\lambda &gt; 0$.</p>
 <p>Die Folge $(y_n)_{n \ge 0}$ ist genau dann beschränkt, wenn $-\frac{2}{\lambda} \le h \le 0$ gilt.</p>
 
 </div>
@@ -79,11 +80,11 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{align*}
-y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{1}{4}\ f\big(y_n + \frac{2}{3}\ h\ f(y_n)\big)\bigg) \\
+y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{3}{4}\ f\big(y_n + \frac{2}{3}\ h\ f(y_n)\big)\bigg) \\
 &amp;= y_n + \frac{\lambda}{4}\ h\ y_n + \frac{3\ \lambda}{4}\ h\ \big(y_n + \frac{2\ \lambda}{3}\ h\ y_n\big) \\
 &amp;= \big(1 + \frac{\lambda}{4}\ h + \frac{3\ \lambda}{4}\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
 &amp;= \big(1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
-&amp;=\ ... \\
+&amp;= \ ... \\
 &amp;= \big(1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)^{n+1}\ y_0
 \end{align*}
 </div>
@@ -100,7 +101,7 @@ y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{1}{4}\ f\big(y_n + \fr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\bullet \quad$ $\frac{\lambda^2}{2}\ h^2 + \lambda\ h + 2 &gt; 0 $ gilt für jedes $h \in \mathbb{R}$ und $\lambda &gt; 0$.</p>
+<p>$\bullet \quad$ $-2 \le \lambda\ h + \frac{\lambda^2}{2}\ h^2 \iff \frac{\lambda^2}{2}\ h^2 + \lambda\ h + 2 \ge 0 $ gilt für jedes $h \in \mathbb{R}$ und $\lambda &gt; 0$.</p>
 
 </div>
 </div>
@@ -116,7 +117,7 @@ y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{1}{4}\ f\big(y_n + \fr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Da für $h \ge 0$ die Ungleichung $\frac{\lambda}{2}\ h + 1 \le 0$ nicht gelten kann, ist nach einer kurzen Umformung die Behauptung $-\frac{2}{\lambda} \le h \le 0$ gezeigt.</p>
+<p>Da für $h \ge 0$ die Ungleichung $\frac{\lambda}{2}\ h + 1 \le 0$ nicht gelten kann, ist die Behauptung $-\frac{2}{\lambda} \le h \le 0$ gezeigt.</p>
 <div style="width:12px; height:12px; border:1px solid #000; margin-left:auto; margin-right:0;"></div>
 </div>
 </div>
