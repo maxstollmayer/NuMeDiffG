@@ -130,7 +130,34 @@ class Runge_Kutta:
     '''
 
     def __init__(self, A, b, c):
-        self.stages = len(b)
         self.A = A
         self.b = b
         self.c = c
+        self.s = len(b)
+
+    def solve(self, f, y0, t0, tN, N, tol, method):
+        h = (tN - t0) / N
+        t = t0 + h * np.arange(N+1)
+        y = np.array([y0])
+
+        for n in range(1, N+1):
+            self.get_k()
+
+        return t, y
+
+    def get_k(self, f, y_n, t_n):
+        '''
+        k_j = f(t_n + h * c_j, y_n + h * Sum_l=1^s a_jl * k_l) for j = 1,...,s
+        '''
+
+        def g():
+            pass
+
+        k = np.zeros(self.s)
+        for j in range(1, self.s + 1):
+            k[j] = self.iter()
+
+        return k
+
+    def iter(self, f, y0):
+        pass
