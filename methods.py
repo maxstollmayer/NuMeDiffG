@@ -1,89 +1,145 @@
 import numpy as np
 
 
+# Equation solving methods
+
+def fixed_point_iter(f, y0, *args, tol=0.01, steps=100):
+    '''
+    Returns approximated fixed point of given function if found using a simple
+    fixed point iteration.
+
+    f ....... function with y as first positional argument
+    y0 ...... initial value of iteration
+    *args ... static arguments of f
+    tol ..... tolerance of approximation to stop iterating
+    steps ... maximum number of iterations before divergence is declared
+    '''
+
+    if type(y0) == int:
+        y = np.zeros(steps)
+    else:
+        y = np.zeros((steps, np.size(y0)))
+    y[0] = y0
+
+    for n in range(0, steps):
+        y[n+1] = f(y[n], *args)
+
+        if np.allclose(y[n+1], y[n], atol=tol):
+            return y[n+1]
+
+    else:
+        print(f"Fixed-point iteration did not converge in {steps} steps. Returned initial value.")
+        return y0
+
+
+def newton_raphson(f, df, x0, *args, tol=0.01, steps=100, eps=10^(-10)):
+    '''
+    Returns approximated root of given function if found using the
+    Newton-Raphson method.
+
+    f ... function with x as first positional argument
+    df ... derivative of f with same arguments as f
+    x0 ... initial value of iteration
+    *args ... static arguments of f and df
+    tol ... tolerance of approximation to stop iterating
+    steps ... number of values that get calculated
+    eps ... minimum value of the denominator in the calculation
+    '''
+
+    if type(x0) == int:
+        x = np.zeros(steps)
+    else:
+        x = np.zeros((steps, np.size(x0)))
+    x[0] = x0
+
+    for n in range(0, steps):
+        y = f(x[n], *args)
+        dy = df(x[n], *args)
+
+        if abs(dy) <= eps:
+            print(f"Denominator f'(x[{n}]) too small. Returned last value x[{n}].")
+            return x[n]
+
+        x[n+1] = x[n] - y / dy
+
+        if np.allclose(x[n+1], x[n], atol=tol):
+            return x[n+1]
+
+    else:
+        print(f"Newton-Raphson did not converge in {steps} steps. Returned initial value.")
+        return x0
+
+
+
+def line_method(f, y, *args, tol=0.01, steps=100):
+    pass
+
+
+def dampend_newton(f, y, *args, tol=0.01, steps=100):
+    pass
+
+
+def modified_newton(f, y, *args, tol=0.01, steps=100):
+    pass
+
+
+# ODE solving methods
+
 def forward_euler(f, y0, t0, tN, N):
     '''
     Returns list of input values and list of corresponding function values
-    approximated with the forward Euler method
+    approximated with the forward Euler method.
 
-    f is the function of the ODE y' = f(y, t)
-    t0 and tN are the boundaries of the interval [t0, tN]
-    this interval is divided into N+1 steps
-    y0 is the initial condition y(t0) = y0
+    f .... function of ODE y' = f(y, t)
+    y0 ... initial value y(t0) = y0
+    t0 ... starting point of interval
+    tN ... end point of interval
+    N .... number of steps
     '''
 
-    # step size
     h = (tN - t0) / N
-
-    # list of input values with step size h
     t = t0 + h * np.arange(N+1)
 
-    # array of function vectors starting with the initial value
-    y = np.array([y0])
+    if type(y0) == int:
+        y = np.zeros(N+1)
+    else:
+        y = np.zeros((N+1, np.size(y0)))
+    y[0] = y0
 
-    # loop to generate function values with forward euler method
     for n in range(0, N):
-        new = y[n] + h * f(y[n], t[n])
-        y = np.append(y, [new], axis=0)
+        y[n+1] = y[n] + h * f(y[n], t[n])
 
     return t, y
-
-
-def fixed_point_iter(f, y, *args, tol=0.01, steps=100):
-    '''
-    Nests given function f on first positional argument y from starting value
-    until desired accuracy is reached
-    otherwise returns last y value after N steps
-    '''
-
-    # compute new value
-    new = f(y, *args)
-
-    # if desired accuracy is reached, returns new value
-    if np.allclose(y, new, atol=tol):
-        return new
-
-    # returns last y value after n steps if accuracy is not reached
-    elif steps == 0:
-        print(f"Fixed-point iteration did not converge for {f}.")
-        return y
-
-    # if neither accuracy nor step limit is reached,
-    # then the iteration continues recursively
-    else:
-        return fixed_point_iter(f, new, *args, tol=tol, steps=steps-1)
 
 
 def backward_euler(f, y0, t0, tN, N, tol=0.001):
     '''
     Returns list of input values and list of corresponding function values
-    approximated with the backward Euler method
+    approximated with the backward Euler method.
 
-    f is the function of the ODE y' = f(y, t)
-    t0 and tN are the boundaries of the interval [t0, tN]
-    this interval is divided into N+1 steps
-    y0 is the initial condition y(t0) = y0
-    tol is the tolerance for convergence of the fixed point iteration
+    f ..... function of ODE y' = f(y, t)
+    y0 .... initial value y(t0) = y0
+    t0 .... starting point of interval
+    tN .... end point of interval
+    N ..... number of steps
+    tol ... tolerance of approximation to stop iterating
     '''
-    # step size
-    h = (tN - t0) / N
 
-    # list of input values with step size h
+    h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    # array of function vectors starting with the initial value
-    y = np.array([y0])
+    if type(y0) == int:
+        y = np.zeros(N+1)
+    else:
+        y = np.zeros((N+1, np.size(y0)))
+    y[0] = y0
 
-    # function of the backward Euler method for the iteration
-    # y_iter is the value that gets iterated, t_n and y_n are static
+    # function to iterate
     def g(y_iter, t_n, y_n):
         return y_n + h * f(y_iter, t_n)
 
-    # loop to calculate values for all inputs t
-    # fixed point iteration is applied to find approximation of next y value
     for n in range(0, N):
-        new = fixed_point_iter(g, y[n], t[n], y[n], tol=tol)
-        y = np.append(y, [new], axis=0)
+        y[n+1] = fixed_point_iter(g, y[n], t[n], y[n], tol=tol)
 
     return t, y
 
@@ -91,34 +147,31 @@ def backward_euler(f, y0, t0, tN, N, tol=0.001):
 def crank_nicolson(f, y0, t0, tN, N, tol=0.001):
     '''
     Returns list of input values and list of corresponding function values
-    approximated with the Crank-Nicolson method
+    approximated with the Crank-Nicolson method.
 
-    f is the function of the ODE y' = f(y, t)
-    t0 and tN are the boundaries of the interval [t0, tN]
-    this interval is divided into N+1 steps
-    y0 is the initial condition y(t0) = y0
-    tol is the tolerance for convergence of the fixed point iteration
+    f ..... function of ODE y' = f(y, t)
+    y0 .... initial value y(t0) = y0
+    t0 .... starting point of interval
+    tN .... end point of interval
+    N ..... number of steps
+    tol ... tolerance of approximation to stop iterating
     '''
 
-    # step size
     h = (tN - t0) / N
-
-    # list of input values with step size h
     t = t0 + h * np.arange(N+1)
 
-    # array of function vectors starting with the initial value
-    y = np.array([y0])
+    if type(y0) == int:
+        y = np.zeros(N+1)
+    else:
+        y = np.zeros((N+1, np.size(y0)))
+    y[0] = y0
 
-    # function of the Crank-Nicolson method for the iteration
-    # y_iter gets iterated, t_next, y_n, t_n are static
+    # function to iterate
     def g(y_iter, t_next, y_n, t_n):
         return y_n + h/2 * (f(y_n, t_n) + f(y_iter, t_next))
 
-    # loop to calculate values for all inputs t
-    # fixed point iteration is applied to find approximation for next y value
     for n in range(0, N):
-        new = fixed_point_iter(g, y[n], t[n+1], y[n], t[n], tol=tol)
-        y = np.append(y, [new], axis=0)
+        y[n+1] = fixed_point_iter(g, y[n], t[n+1], y[n], t[n], tol=tol)
 
     return t, y
 
