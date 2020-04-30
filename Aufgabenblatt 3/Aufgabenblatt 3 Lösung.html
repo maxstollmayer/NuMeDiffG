@@ -13099,8 +13099,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Sei $y_{n+1} = y_n + h\ \Phi (t_n, y_n, h)$ eine explizite Ein-Schritt-Methode mit $\Phi (t, y, h) = a_1\ f(t,y) + a_2\ f\big(t+b_2\ h,\ y+ b_2\ h\ f(t,y)\big)$ und Koeffizienten $a_1 = \frac{1}{4},\ a_2 = \frac{3}{4},\ b_2 = \frac{2}{3}$ für das Modellproblem $y' = \lambda\ y$ mit $\lambda &gt; 0$.</p>
-<p>Die Folge $(y_n)_{n \ge 0}$ ist genau dann beschränkt, wenn $-\frac{2}{\lambda} \le h \le 0$ gilt.</p>
+<p>Sei $y_{n+1} = y_n + h\ \Phi (t_n, y_n, h)$ eine explizite Ein-Schritt-Methode mit $\Phi (t, y, h) = a_1\ f(t,y) + a_2\ f\big(t+b_2\ h,\ y+ b_2\ h\ f(t,y)\big)$ und Koeffizienten $a_1 = \frac{1}{4},\ a_2 = \frac{3}{4},\ b_2 = \frac{2}{3}$ für das Modellproblem $y' = -\lambda\ y$ mit $\lambda &gt; 0$.</p>
+<p>Die Folge $(y_n)_{n \ge 0}$ ist genau dann beschränkt, wenn $0 \le h \le \frac{2}{\lambda}$ gilt.</p>
 
 </div>
 </div>
@@ -13118,11 +13118,11 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{align*}
 y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{3}{4}\ f\big(y_n + \frac{2}{3}\ h\ f(y_n)\big)\bigg) \\
-&amp;= y_n + \frac{\lambda}{4}\ h\ y_n + \frac{3\ \lambda}{4}\ h\ \big(y_n + \frac{2\ \lambda}{3}\ h\ y_n\big) \\
-&amp;= \big(1 + \frac{\lambda}{4}\ h + \frac{3\ \lambda}{4}\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
-&amp;= \big(1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
+&amp;= y_n + h\ \bigg(-\frac{1}{4}\ \lambda\ y_n - \frac{3}{4}\ \lambda\ y_n + \frac{3}{4}\ \frac{2}{3}\ h\ \lambda^2\ y_n\big)\bigg) \\
+&amp;= \big(1 - \frac{\lambda}{4}\ h - \frac{3\ \lambda}{4}\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
+&amp;= \big(1 - \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)\ y_n \\
 &amp;= \ ... \\
-&amp;= \big(1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)^{n+1}\ y_0
+&amp;= \big(1 - \lambda\ h + \frac{\lambda^2}{2}\ h^2\big)^{n+1}\ y_0
 \end{align*}
 </div>
 </div>
@@ -13130,7 +13130,7 @@ y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{3}{4}\ f\big(y_n + \fr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Die geometrische Folge $(y_n)_{n \ge 0}$ ist nun genau dann beschränkt, wenn $|1 + \lambda\ h + \frac{\lambda^2}{2}\ h^2| \le 1$ gilt, also äquivalent, wenn gilt $-2 \le \lambda\ h + \frac{\lambda^2}{2}\ h^2 \le 0$.</p>
+<p>Die geometrische Folge $(y_n)_{n \ge 0}$ ist nun genau dann beschränkt, wenn $|1 - \lambda\ h + \frac{\lambda^2}{2}\ h^2| \le 1$ gilt, also äquivalent, wenn $-2 \le \frac{\lambda^2}{2}\ h^2 - \lambda\ h \le 0$.</p>
 
 </div>
 </div>
@@ -13138,7 +13138,7 @@ y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{3}{4}\ f\big(y_n + \fr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\bullet \quad$ $-2 \le \lambda\ h + \frac{\lambda^2}{2}\ h^2 \iff \frac{\lambda^2}{2}\ h^2 + \lambda\ h + 2 \ge 0 $ gilt für jedes $h \in \mathbb{R}$ und $\lambda &gt; 0$.</p>
+<p>$\bullet \quad$ $-2 \le \frac{\lambda^2}{2}\ h^2 - \lambda\ h \iff \frac{\lambda^2}{2}\ h^2 - \lambda\ h + 2 \ge 0 $, was für jedes $h \in \mathbb{R}$ und $\lambda &gt; 0$ gilt.</p>
 
 </div>
 </div>
@@ -13146,7 +13146,7 @@ y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{3}{4}\ f\big(y_n + \fr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\bullet \quad$ $\frac{\lambda^2}{2}\ h^2 + \lambda\ h \le 0 \iff h\ (\frac{\lambda}{2}\ h + 1) \le 0 \iff \begin{cases}h \le 0 \land \frac{\lambda}{2}\ h + 1 \ge 0 \\ h \ge 0 \land \frac{\lambda}{2}\ h + 1 \le 0 \end{cases} \iff h \le 0 \land h \ge -\frac{2}{\lambda}$</p>
+<p>$\bullet \quad$ $\frac{\lambda^2}{2}\ h^2 - \lambda\ h \le 0 \iff h\ (\lambda\ h - 2) \le 0 \iff \begin{cases}h \le 0 \land \lambda\ h - 2 \ge 0 \\ h \ge 0 \land \lambda\ h - 2 \le 0 \end{cases} \iff h \ge 0 \land h \le \frac{2}{\lambda}$</p>
 
 </div>
 </div>
@@ -13154,7 +13154,7 @@ y_{n+1} &amp;= y_n + h\ \bigg(\frac{1}{4}\ f(y_n) + \frac{3}{4}\ f\big(y_n + \fr
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Da für $h \ge 0$ die Ungleichung $\frac{\lambda}{2}\ h + 1 \le 0$ nicht gelten kann, ist die Behauptung $-\frac{2}{\lambda} \le h \le 0$ gezeigt.</p>
+<p>Da für $h \le 0$ die Ungleichung $\lambda\ h - 2 \le 0$ nicht gelten kann, ist die Behauptung $0 \le h \le \frac{2}{\lambda}$ gezeigt.</p>
 <div style="width:12px; height:12px; border:1px solid #000; margin-left:auto; margin-right:0;"></div>
 </div>
 </div>
