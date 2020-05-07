@@ -15,7 +15,7 @@ def fixed_point_iter(f, y0, *args, tol=0.01, steps=100):
     steps ... maximum number of iterations before divergence is declared
     '''
 
-    if type(y0) == int:
+    if isinstance(y0, int):
         y = np.zeros(steps)
     else:
         y = np.zeros((steps, np.size(y0)))
@@ -32,21 +32,21 @@ def fixed_point_iter(f, y0, *args, tol=0.01, steps=100):
         return y0
 
 
-def newton_raphson(f, df, x0, *args, tol=0.01, steps=100, eps=10^(-10)):
+def newton_raphson(f, df, x0, *args, tol=0.01, steps=100, eps=10**(-10)):
     '''
     Returns approximated root of given function if found using the
     Newton-Raphson method.
 
-    f ... function with x as first positional argument
-    df ... derivative of f with same arguments as f
-    x0 ... initial value of iteration
+    f ....... function with x as first positional argument
+    df ...... derivative of f with same arguments as f
+    x0 ...... initial value of iteration
     *args ... static arguments of f and df
-    tol ... tolerance of approximation to stop iterating
+    tol ..... tolerance of approximation to stop iterating
     steps ... number of values that get calculated
-    eps ... minimum value of the denominator in the calculation
+    eps ..... minimum value of the denominator in the calculation
     '''
 
-    if type(x0) == int:
+    if isinstance(x0, int):
         x = np.zeros(steps)
     else:
         x = np.zeros((steps, np.size(x0)))
@@ -56,7 +56,7 @@ def newton_raphson(f, df, x0, *args, tol=0.01, steps=100, eps=10^(-10)):
         y = f(x[n], *args)
         dy = df(x[n], *args)
 
-        if abs(dy) <= eps:
+        if np.abs(dy) <= eps:
             print(f"Denominator f'(x[{n}]) too small. Returned last value x[{n}].")
             return x[n]
 
@@ -100,7 +100,7 @@ def forward_euler(f, y0, t0, tN, N):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if type(y0) == int:
+    if isinstance(y0, int):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -112,7 +112,7 @@ def forward_euler(f, y0, t0, tN, N):
     return t, y
 
 
-def backward_euler(f, y0, t0, tN, N, tol=0.001):
+def backward_euler(f, y0, t0, tN, N, tol=0.01):
     '''
     Returns list of input values and list of corresponding function values
     approximated with the backward Euler method.
@@ -128,7 +128,7 @@ def backward_euler(f, y0, t0, tN, N, tol=0.001):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if type(y0) == int:
+    if isinstance(y0, int):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -144,7 +144,7 @@ def backward_euler(f, y0, t0, tN, N, tol=0.001):
     return t, y
 
 
-def crank_nicolson(f, y0, t0, tN, N, tol=0.001):
+def crank_nicolson(f, y0, t0, tN, N, tol=0.01):
     '''
     Returns list of input values and list of corresponding function values
     approximated with the Crank-Nicolson method.
@@ -160,7 +160,7 @@ def crank_nicolson(f, y0, t0, tN, N, tol=0.001):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if type(y0) == int:
+    if isinstance(y0, int):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -172,6 +172,67 @@ def crank_nicolson(f, y0, t0, tN, N, tol=0.001):
 
     for n in range(0, N):
         y[n+1] = fixed_point_iter(g, y[n], t[n+1], y[n], t[n], tol=tol)
+
+    return t, y
+
+
+def rk4(f, y0, t0, tN, N):
+    '''
+    Returns list of input values and list of corresponding function values
+    approximated with the Runge-Kutta method of 4th order.
+
+    f ..... function of ODE y' = f(y, t)
+    y0 .... initial value y(t0) = y0
+    t0 .... starting point of interval
+    tN .... end point of interval
+    N ..... number of steps
+    '''
+
+    h = (tN - t0) / N
+    t = t0 + h * np.arange(N+1)
+
+    if isinstance(y0, int):
+        y = np.zeros(N+1)
+    else:
+        y = np.zeros((N+1, np.size(y0)))
+    y[0] = y0
+
+    for n in range(0, N):
+        k1 = f(y[n], t[n])
+        k2 = f(y[n] + h/2 * k1, t[n] + h/2)
+        k3 = f(y[n] + h/2 * k1, t[n] + h/2)
+        k4 = f(y[n] + h/2 * k1, t[n] + h/2)
+        y[n+1] = y[n] + h/6 * (k1 + 2*k2 + 2*k3 + k4)
+
+    return t, y
+
+
+def adams_bashforth(f, vals, t0, tN, N):
+    '''
+    Returns list of input values and list of corresponding function values
+    approximated with the Adams-Bashforth method.
+
+    f ...... function of ODE y' = f(y, t)
+    vals ... initial values (y0, y1, y2, y3)
+    t0 ..... starting point of interval
+    tN ..... end point of interval
+    N ...... number of steps
+    '''
+
+    h = (tN - t0) / N
+    t = t0 + h * np.arange(N+1)
+
+    if isinstance(vals[0], int):
+        y = np.zeros(N+1)
+    else:
+        y = np.zeros((N+1, np.size(vals[0])))
+
+    for i in range(0, len(vals)):
+        y[i] = vals[i]
+
+    for n in range(0, N-3):
+        y[n+4] = (y[n+3] + h/24 * (55*f(y[n+3], t[n+3]) - 59*f(y[n+2], t[n+2])
+                  + 37*f(y[n+1], t[n+1]) - 9*f(y[n], t[n])))
 
     return t, y
 
