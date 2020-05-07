@@ -15,7 +15,7 @@ def fixed_point_iter(f, y0, *args, tol=0.01, steps=100):
     steps ... maximum number of iterations before divergence is declared
     '''
 
-    if isinstance(y0, int):
+    if isinstance(y0, (int, float)):
         y = np.zeros(steps)
     else:
         y = np.zeros((steps, np.size(y0)))
@@ -46,7 +46,7 @@ def newton_raphson(f, df, x0, *args, tol=0.01, steps=100, eps=10**(-10)):
     eps ..... minimum value of the denominator in the calculation
     '''
 
-    if isinstance(x0, int):
+    if isinstance(x0, (int, float)):
         x = np.zeros(steps)
     else:
         x = np.zeros((steps, np.size(x0)))
@@ -68,7 +68,6 @@ def newton_raphson(f, df, x0, *args, tol=0.01, steps=100, eps=10**(-10)):
     else:
         print(f"Newton-Raphson did not converge in {steps} steps. Returned initial value.")
         return x0
-
 
 
 def line_method(f, y, *args, tol=0.01, steps=100):
@@ -100,7 +99,7 @@ def forward_euler(f, y0, t0, tN, N):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if isinstance(y0, int):
+    if isinstance(y0, (int, float)):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -128,7 +127,7 @@ def backward_euler(f, y0, t0, tN, N, tol=0.01):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if isinstance(y0, int):
+    if isinstance(y0, (int, float)):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -160,7 +159,7 @@ def crank_nicolson(f, y0, t0, tN, N, tol=0.01):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if isinstance(y0, int):
+    if isinstance(y0, (int, float)):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -191,7 +190,7 @@ def rk4(f, y0, t0, tN, N):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if isinstance(y0, int):
+    if isinstance(y0, (int, float)):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(y0)))
@@ -222,7 +221,7 @@ def adams_bashforth(f, vals, t0, tN, N):
     h = (tN - t0) / N
     t = t0 + h * np.arange(N+1)
 
-    if isinstance(vals[0], int):
+    if isinstance(vals[0], (int, float)):
         y = np.zeros(N+1)
     else:
         y = np.zeros((N+1, np.size(vals[0])))
@@ -240,16 +239,32 @@ def adams_bashforth(f, vals, t0, tN, N):
 class Runge_Kutta:
     '''
     An instance of Runge_Kutta is an iterative numerical method defined by its
-    butcher array
+    butcher array.
     '''
 
     def __init__(self, A, b, c):
-        self.A = A
-        self.b = b
-        self.c = c
-        self.s = len(b)
+        self.order = len(b)
+        if A.shape == (self.order, self.order) and len(c) == len(b):
+            self.A = A
+            self.b = b
+            self.c = c
+        else:
+            raise Exception(f"Input shapes are mismatched. A: {A.shape}, b: {len(b)}, c: {len(c)}")
 
-    def solve(self, f, y0, t0, tN, N, tol, method):
+    def solve(self, f, y0, a, b, h=None, N=None, tol=0.01):
+        if not callable(f):
+            raise Exception(f"Expected a callable function, not {f}.")
+        elif not isinstance(y0, (int, float, list, tuple, np.ndarray)):
+            raise Exception(f"Expected a number or array, not {y0}.")
+        elif not isinstance(a, (int, float)) or not isinstance(a, (int, float)) or not a < b:
+            raise Exception(f"Expected two numbers that satisfy a < b.")
+        elif not isinstance(h, (None, int, float)):
+            raise Exception("Step size should be a number.")
+        elif not isinstance(N, (None, int)):
+            raise Exception("Expected a number for the number of steps.")
+        elif not isinstance(tol, (float, int)):
+            raise Exception("Tolerance should be a number")
+
         h = (tN - t0) / N
         t = t0 + h * np.arange(N+1)
         y = np.array([y0])
