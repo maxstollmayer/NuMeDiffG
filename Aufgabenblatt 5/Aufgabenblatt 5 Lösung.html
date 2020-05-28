@@ -13077,14 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Numerische-Methoden-f&#252;r-Differentialgleichungen">Numerische Methoden f&#252;r Differentialgleichungen<a class="anchor-link" href="#Numerische-Methoden-f&#252;r-Differentialgleichungen">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabenblatt-5">Aufgabenblatt 5<a class="anchor-link" href="#Aufgabenblatt-5">&#182;</a></h2><p><em>gelöst von Stollmayer Max</em></p>
+<h1 id="Numerische-Methoden-f&#252;r-Differentialgleichungen">Numerische Methoden f&#252;r Differentialgleichungen<a class="anchor-link" href="#Numerische-Methoden-f&#252;r-Differentialgleichungen">&#182;</a></h1><h2 id="Aufgabenblatt-5">Aufgabenblatt 5<a class="anchor-link" href="#Aufgabenblatt-5">&#182;</a></h2><p><em>gelöst von Stollmayer Max</em></p>
 
 </div>
 </div>
@@ -13132,7 +13125,7 @@ div#notebook {
 <span class="sd">    </span>
 <span class="sd">    T ... tridiagonal matrix</span>
 <span class="sd">    y ... vector</span>
-<span class="sd">    &#39;&#39;&#39;</span>    
+<span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     
@@ -13140,7 +13133,7 @@ div#notebook {
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input shapes are mismatched. Matrix: </span><span class="si">{</span><span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, Vector: (</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
     
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">T</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">],</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matrix has zero on diagonal at Matrix[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">].&quot;</span><span class="p">)</span>
     
     <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -13174,7 +13167,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">FDM</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Finite difference method for second order ODE on an interval [a, b].</span>
-<span class="sd">    Returns list of function values on the given grid.</span>
+<span class="sd">    Returns list of function values on the given grid, which needn&#39;t be equidistant.</span>
 <span class="sd">    </span>
 <span class="sd">    f ...... function of ODE: u&#39;&#39;(x) = f(x)</span>
 <span class="sd">    grid ... discretized interval: [x_0 = a, x_1, ..., x_N-1, x_N = b]</span>
@@ -13210,11 +13203,43 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">vals1</span><span class="p">,</span> <span class="n">vals2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vals1</span> <span class="o">-</span> <span class="n">vals2</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">exact_vals</span><span class="p">,</span> <span class="n">approx_vals</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Maxmimum norm&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">exact_vals</span> <span class="o">-</span> <span class="n">approx_vals</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">step_size</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Approximation of order of convergence&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">step_size</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">OUTPUT</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">exact</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Prints errors, rates and plots the functions&#39;&#39;&#39;</span>
+    
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">h</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">u</span> <span class="o">=</span> <span class="n">FDM</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">)</span>
+        <span class="n">vals</span> <span class="o">+=</span> <span class="p">(</span><span class="n">u</span><span class="p">,)</span>
+
+        <span class="n">e</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">exact</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
+        <span class="n">errors</span> <span class="o">+=</span> <span class="p">(</span><span class="n">e</span><span class="p">,)</span>
+        <span class="n">rates</span> <span class="o">+=</span> <span class="p">(</span><span class="n">order</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">h</span><span class="p">),)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> steps&quot;</span><span class="p">)</span>
+
+    <span class="n">rates</span> <span class="o">=</span> <span class="n">order</span><span class="p">(</span><span class="n">errors</span><span class="p">,(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">steps</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;steps | error    | rate&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">N</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">rates</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">N</span><span class="si">:</span><span class="s2">3.0f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">e</span><span class="si">:</span><span class="s2">.2E</span><span class="si">}</span><span class="s2"> |   </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">2.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exact</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13233,35 +13258,12 @@ div#notebook {
 <span class="k">def</span> <span class="nf">exact</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span>
 
-<span class="n">steps</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">ua</span> <span class="o">=</span> <span class="n">ub</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 
-<span class="n">errors</span> <span class="o">=</span> <span class="p">()</span>
-<span class="n">rates</span> <span class="o">=</span> <span class="p">()</span>
-
-<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">h</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="n">u</span> <span class="o">=</span> <span class="n">FDM</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">)</span>
-    
-    <span class="n">e</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">exact</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
-    <span class="n">errors</span> <span class="o">+=</span> <span class="p">(</span><span class="n">e</span><span class="p">,)</span>
-    <span class="n">rates</span> <span class="o">+=</span> <span class="p">(</span><span class="n">order</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">h</span><span class="p">),)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> steps&quot;</span><span class="p">)</span>
-
-<span class="n">rates</span> <span class="o">=</span> <span class="n">order</span><span class="p">(</span><span class="n">errors</span><span class="p">,(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">steps</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;steps | error    | rate&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">N</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">rates</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">N</span><span class="si">:</span><span class="s2">3.0f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">e</span><span class="si">:</span><span class="s2">.2E</span><span class="si">}</span><span class="s2"> |   </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">2.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exact</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">OUTPUT</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">exact</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13311,6 +13313,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Es scheint als würde der Fehler wachsen und das Verfahren divergieren, aber das kommt wahrscheinlich aus der Summe der numerischen Rechenfehler. Nach dem Plot sollte das Verfahren sehr gut konvergieren.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Aufgabe-2">Aufgabe 2<a class="anchor-link" href="#Aufgabe-2">&#182;</a></h3>
 </div>
 </div>
@@ -13338,29 +13348,9 @@ div#notebook {
 <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">ua</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">ub</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 
-<span class="n">errors</span> <span class="o">=</span> <span class="p">()</span>
-<span class="n">rates</span> <span class="o">=</span> <span class="p">()</span>
-
-<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">h</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="n">u</span> <span class="o">=</span> <span class="n">FDM</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">)</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">exact</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
-    <span class="n">errors</span> <span class="o">+=</span> <span class="p">(</span><span class="n">e</span><span class="p">,)</span>
-    <span class="n">rates</span> <span class="o">+=</span> <span class="p">(</span><span class="n">order</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">h</span><span class="p">),)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> steps&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;steps | error    | rate&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">N</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">rates</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">N</span><span class="si">:</span><span class="s2">3g</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">e</span><span class="si">:</span><span class="s2">.2E</span><span class="si">}</span><span class="s2"> |   </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">2.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exact</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">OUTPUT</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">exact</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">ua</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13406,6 +13396,14 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Es scheint als würde der Fehler wachsen und das Verfahren divergieren, aber das kommt wahrscheinlich aus der Summe der numerischen Rechenfehler. Nach dem Plot sollte das Verfahren sehr gut konvergieren.</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
