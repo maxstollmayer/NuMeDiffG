@@ -14,4 +14,8 @@ Beweis zu expliziter Ein-Schritt-Methode und Implementierung des Rückwärts-Eul
 Beweis zur Konsistenz und Null-Stabilität einer linearen Mehrschrittmethode und Implementierung der Adams-Bashforth-Methode.
 
 ### Aufgabenblatt 5
-Implementierung einer Finite-Differenzen-Methode.
+Implementierung einer Finite-Differenzen-Methode für eine einfache Gleichung in R.
+
+### Aufgabenblatt 6
+Implementierung einer Finite-Differenzen-Methode für eine Poisson-Gleichung im R^2.
+
