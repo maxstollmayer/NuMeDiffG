@@ -231,7 +231,7 @@ def adams_bashforth(f, vals, t0, tN, N):
 
     for n in range(0, N-3):
         y[n+4] = (y[n+3] + h/24 * (55*f(y[n+3], t[n+3]) - 59*f(y[n+2], t[n+2])
-                  + 37*f(y[n+1], t[n+1]) - 9*f(y[n], t[n])))
+                                   + 37*f(y[n+1], t[n+1]) - 9*f(y[n], t[n])))
 
     return t, y
 
