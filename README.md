@@ -1,5 +1,5 @@
 # Numerische Methoden für Differentialgleichungen
-Repo für die Lösungen der Aufgaben von der VU "Numerischen Methoden für Differentialgleichungen"
+Repo für die Lösungen der Aufgaben von der VU "Numerischen Methoden für Differentialgleichungen" im Sommersemester 2020
 
 ### Aufgabenblatt 1
 Implementierung des Vorwärts-Euler-Verfahrens für ODE-Systeme 1. Ordnung.
