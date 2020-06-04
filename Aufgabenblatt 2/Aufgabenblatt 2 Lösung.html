@@ -13077,14 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Numerische-Methoden-f&#252;r-Differentialgleichungen">Numerische Methoden f&#252;r Differentialgleichungen<a class="anchor-link" href="#Numerische-Methoden-f&#252;r-Differentialgleichungen">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabenblatt-2">Aufgabenblatt 2<a class="anchor-link" href="#Aufgabenblatt-2">&#182;</a></h2><p><em>gelöst von Stollmayer Max</em></p>
+<h1 id="Numerische-Methoden-f&#252;r-Differentialgleichungen">Numerische Methoden f&#252;r Differentialgleichungen<a class="anchor-link" href="#Numerische-Methoden-f&#252;r-Differentialgleichungen">&#182;</a></h1><h2 id="Aufgabenblatt-2">Aufgabenblatt 2<a class="anchor-link" href="#Aufgabenblatt-2">&#182;</a></h2><p><em>gelöst von Stollmayer Max</em></p>
 
 </div>
 </div>
@@ -13131,9 +13124,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsschritt:</strong>  Für $n+1$ folgt nun:
-$$y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \frac{n \ h + 1}{n \ h +1}=n \ h +1 + h=(n+1) \ h+1=y\big((n+1) \ h\big)=y(t_{n+1})$$</p>
-
+<p><strong>Induktionsschritt:</strong>  Für $n+1$ folgt nun:</p>
+\begin{equation*}
+    y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \frac{n \ h + 1}{n \ h +1}=n \ h +1 + h=(n+1) \ h+1=y\big((n+1) \ h\big)=y(t_{n+1})
+\end{equation*}
 </div>
 </div>
 </div>
@@ -13187,7 +13181,9 @@ y_{n+1} &amp;= y_n+\frac{h}{2}\bigg(f(t_n,y_n)+f(t_{n+1},y_{n+1})\bigg) \\
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-$$ y_n = \frac{1}{2-h \ a(t_n)} \bigg( \big(2-h \ a(t_0)\big) \ y_0 + h \ \sum_{k=1}^n \big(2-h \ a(t_k)\big)\big(b(t_k)+b(t_{k-1})\big)\bigg) $$
+\begin{equation*}
+y_n = \frac{1}{2-h \ a(t_n)} \bigg( \big(2-h \ a(t_0)\big) \ y_0 + h \ \sum_{k=1}^n \big(2-h \ a(t_k)\big)\big(b(t_k)+b(t_{k-1})\big)\bigg)
+\end{equation*}
 </div>
 </div>
 </div>
