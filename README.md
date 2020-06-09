@@ -19,3 +19,5 @@ Implementierung einer Finite-Differenzen-Methode für eine einfache Gleichung in
 ### Aufgabenblatt 6
 Implementierung einer Finite-Differenzen-Methode für eine Poisson-Gleichung im R^2.
 
+### Aufgabenblatt 7
+Implementierung des Upwind- und dex Lax-Friedrichs-Verfahrens für die Transportgleichung in R.
