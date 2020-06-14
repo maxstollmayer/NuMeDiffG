@@ -20,4 +20,4 @@ Implementierung einer Finite-Differenzen-Methode für eine einfache Gleichung in
 Implementierung einer Finite-Differenzen-Methode für eine Poisson-Gleichung im R^2.
 
 ### Aufgabenblatt 7
-Implementierung des Upwind- und des Lax-Friedrichs-Verfahrens für die Transportgleichung in R.
+Implementierung des Upwind- und des Lax-Friedrichs-Verfahrens für die Konvektionsgleichung in R.
