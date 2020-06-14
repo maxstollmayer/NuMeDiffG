@@ -19,3 +19,5 @@ Implementierung einer Finite-Differenzen-Methode für einfache ODE in R.
 ### Aufgabenblatt 6
 Implementierung einer Finite-Differenzen-Methode für eine Poisson-Gleichung im R^2.
 
+### Aufgabenblatt 7
+Implementierung des Upwind- und des Lax-Friedrichs-Verfahrens für die Konvektionsgleichung in R.
