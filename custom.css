@@ -1,12 +1,89 @@
+html {
+	font-size: initial;
+}
+
+body {
+	font-size: inherit;
+	padding: 0;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+h1 {
+	text-align: center;
+}
+
 .prompt {
-  display: none;
+	display: none;
 }
 
 .input_prompt {
-  display: none;
+	display: none;
+}
+
+.highlight > pre {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	background-color: #f8f8f8;
+}
+
+div.output_subarea {
+	max-width: 100%;
+}
+
+div#notebook {
+	font-size: inherit;
+	padding-top: 0;
 }
 
 #notebook-container {
-  padding: 45px;
-  padding-top: 15px;
+	width: 100%;
+	max-width: 82em;
+	padding: 0.5em;
+	padding-top: 1em;
+}
+
+.container {
+	margin: 0;
+	padding: 0;
+}
+
+
+@media (min-width: 43em) {
+	#notebook-container {
+		width: 85%;
+		min-width: 43em;
+		padding: 2em;
+		padding-top: 1em;
+	}
+	
+	div#notebook {
+		padding-top: 1em;
+	}
+	
+	.container {
+		margin: 0 auto;
+	}
+	
+	h1 {
+		text-align: left;
+	}
+}
+
+
+@media (min-width: 62em) {
+	#notebook-container {
+		width: 85%;
+		padding: 4em;
+		padding-top: 2em;
+	}
+}
+
+
+@media (min-width: 82em) {
+	#notebook-container {
+	}
 }

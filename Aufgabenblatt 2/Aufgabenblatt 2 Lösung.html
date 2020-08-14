@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aufgabenblatt 2 Lösung</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
@@ -13092,7 +13092,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Gegeben sei $y'(t)=f(t,y)=\frac{t+1}{y}$, $y_0 = 1$, $t_0 = 0$ und die exakte Lösung $y(t)=|t+1|$. Das Vorwärts-Euler-Verfahren für Schrittweite $h&gt;0$ liefert für dieses Problem die exakte Lösung.</p>
+<p><em>Gegeben sei $\begin{cases} y'(t)=f(t,y)=\frac{t+1}{y} \\ y(0) = 1 \end{cases}$ und die exakte Lösung $y(t)=|t+1|.$ Zeige dass das explizite Euler-Verfahren für Schrittweite $h&gt;0$ für dieses Problem die exakte Lösung liefert.</em></p>
 
 </div>
 </div>
@@ -13100,34 +13100,17 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Zu zeigen ist nun $y_{n+1} = y(t_{n+1}) \; \forall n \in \mathbb{N}$, wobei $t_{n+1} = t_0 + (n+1) \ h$ und $y_{n+1}=y_n + h \ f(t_n,y_n)$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsanfang:</strong>  Es sei $n=0$, dann gilt $y_1 = y_0 + h \ f(t_0,y_0) = 1 + h \frac{1}{1} = 1+h = y(h) = y(t_1)$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsannahme:</strong>  Für $n \in \mathbb{N}$ gelte $y_n = y(t_n)$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Induktionsschritt:</strong>  Für $n+1$ folgt nun:</p>
-\begin{equation*}
-    y_{n+1}=y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \frac{n \ h + 1}{n \ h +1}=n \ h +1 + h=(n+1) \ h+1=y\big((n+1) \ h\big)=y(t_{n+1})
-\end{equation*}
+<h4 id="Beweis">Beweis<a class="anchor-link" href="#Beweis">&#182;</a></h4><p>Zu zeigen ist also $y_{n+1} = y(t_{n+1}) \; \forall n \in \mathbb{N},$ wobei $t_{n+1} = t_0 + (n+1) \ h$ und $y_{n+1}=y_n + h \ f(t_n,y_n).$</p>
+<p>Induktionsanfang:
+Es sei $n=0,$ dann gilt $y_1 = y_0 + h \ f(t_0,y_0) = 1+h = y(h) = y(t_1).$</p>
+<p>Induktionsannahme:
+Für $n \in \mathbb{N}$ gelte $y_n = y(t_n).$</p>
+<p>Induktionsschritt:
+Für $n+1$ folgt nun:</p>
+\begin{align*}
+    y_{n+1} &amp;= y_n+h \ f(t_n,y_n)=y(n \ h)+h \frac{t_n + 1}{y(n \ h)}=n \ h +1+h \frac{n \ h + 1}{n \ h +1}=(n+1) \ h+1=y\big((n+1) \ h\big) \\
+    &amp;= y(t_{n+1}).
+\end{align*}
 </div>
 </div>
 </div>
@@ -13148,7 +13131,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Für $y'(t)=f(t,y)=a(t) \ y(t)+b(t)$ lässt sich das Crank-Nicolson-Verfahren zu einem expliziten Ausdruck umformen:</p>
+<p><em>Zeige für $y'(t)=f(t,y)=a(t) \ y(t)+b(t),$ dass sich das Crank-Nicolson-Verfahren zu einem expliziten Ausdruck umformen lässt.</em></p>
 
 </div>
 </div>
@@ -13156,6 +13139,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Beweis">Beweis<a class="anchor-link" href="#Beweis">&#182;</a></h4><p>Durch Einsetzen formen wir das Crank-Nicolson-Verfahren zuerst zu einem expliziten Verfahren um und dann können wir die Rekursion auflösen:</p>
 \begin{align*}
 y_{n+1} &amp;= y_n+\frac{h}{2}\bigg(f(t_n,y_n)+f(t_{n+1},y_{n+1})\bigg) \\
 &amp;= y_n + \frac{h}{2}\bigg(f(t_n,y_n)+a(t_{n+1}) \ y_{n+1}+b(t_{n+1})\bigg) \\
@@ -13174,16 +13158,16 @@ y_{n+1} &amp;= y_n+\frac{h}{2}\bigg(f(t_n,y_n)+f(t_{n+1},y_{n+1})\bigg) \\
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Also ist unser expliziter Ausdruck für lineare ODE 1. Ordnung:</p>
-
+$$
+y_n = \frac{1}{2-h \ a(t_n)} \bigg( \big(2-h \ a(t_0)\big) \ y_0 + h \ \sum_{k=1}^n \big(2-h \ a(t_k)\big)\big(b(t_k)+b(t_{k-1})\big)\bigg)
+$$
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-\begin{equation*}
-y_n = \frac{1}{2-h \ a(t_n)} \bigg( \big(2-h \ a(t_0)\big) \ y_0 + h \ \sum_{k=1}^n \big(2-h \ a(t_k)\big)\big(b(t_k)+b(t_{k-1})\big)\bigg)
-\end{equation*}
+<div style="width:12px; height:12px; border:1px solid #000; margin-left:auto; margin-right:0;"></div>
 </div>
 </div>
 </div>
